@@ -1,18 +1,14 @@
 import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
 import './App.css'
+import { FaBeer } from 'react-icons/fa'
 
 function App() {
   const [count, setCount] = useState(0)
 
   return (
-    <div>
-      <h1 className="text-3xl font-bold underline">
-        Hello world!
-      </h1>
+    <div className="min-h-screen flex items-center justify-center bg-gray-900 ">
+      <h1 className="text-3xl  text-white font-bold ">Hello world!<FaBeer /></h1>       
     </div>
-    
   )
 }
 
