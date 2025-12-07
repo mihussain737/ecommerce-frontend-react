@@ -1,5 +1,8 @@
 import { Button, Dialog, DialogBackdrop, DialogPanel, DialogTitle } from '@headlessui/react'
+import { Divider } from '@mui/material';
 import { useState } from 'react'
+import { MdClose, MdDone } from 'react-icons/md';
+import Status from './Status';
 
 function ProductViewModal({open,setOpen , product, isAvailble}) {
   const {id,productName,image,description,quantity,price,discount,specialPrice}=product;
@@ -28,17 +31,39 @@ function ProductViewModal({open,setOpen , product, isAvailble}) {
               </DialogTitle>
               </div>
               
-              <p className="mt-2 text-sm/6 text-slate-700">
-                {description}
-              </p>
-              <div className="mt-4">
-                <Button
-                  className="inline-flex items-center gap-2 rounded-md bg-gray-700 px-3 py-1.5 text-sm/6 font-semibold text-white shadow-inner shadow-white/10 focus:not-data-focus:outline-none data-focus:outline data-focus:outline-white data-hover:bg-gray-600 data-open:bg-gray-700"
-                  onClick={()=>setOpen(false)}
-                >
-                  Got it, thanks!
-                </Button>
+              <div className='space-y-2 text-gray-600 pb-4'>
+                <div className='flex items-center justify-between gap-2'>
+                  {specialPrice ? (
+                    <div className='flex items-center gap-2'>
+                      <span className='text-gray-400 line-through'>
+                        ${Number(price).toFixed(2)}
+                      </span>
+                      <span className='sm:text-xl font-semibold text-sm'>
+                        ${Number(specialPrice).toFixed(2)}
+                      </span>
+                    </div>
+                    ):(
+                      <span className='text-xl font-bold'>
+                        {" "}
+                        ${Number(specialPrice).toFixed(2)}
+                      </span>
+                    )}
+                    { isAvailble ?(
+                      <Status text="In Stock" icon={MdDone} bg="bg-teal-200" color="text-teal-900"/>
+                    ):(
+                      <Status text="Out Of Stock" icon={MdClose} bg="bg-teal-200" color="text-teal-900"/>
+                    )
+
+                    }
+                </div>
+                <Divider/>
+                <p>{description}</p>
               </div>
+
+               <div className="px-6 py-4 flex justify-end text-slate-700 gap-4 border-t">
+              <button type="button" className='px-4 py-2 text-sm font-semibold text-slate-600 bg-gray-200 rounded-lg hover:bg-gray-300 transition' 
+                onClick={() => setOpen(false)}>Close</button>
+            </div>
             </DialogPanel>
           </div>
         </div>
