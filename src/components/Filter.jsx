@@ -1,7 +1,9 @@
 import { Button } from '@mui/material';
 import { MenuItem, Select, FormControl, InputLabel, Tooltip } from '@mui/material';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { FiArrowUp, FiRefreshCcw, FiSearch } from 'react-icons/fi';
+import { useLocation, useNavigate,useSearchParams } from 'react-router-dom';
+
 
 
 const Filter = () => {
@@ -13,9 +15,27 @@ const Filter = () => {
     { categoryId: 5, categoryName: 'Sports & Outdoors' },
   ];
 
-  const [category, setCategory] = React.useState('');
+  const [searhParams]=useSearchParams();
+  const params=new URLSearchParams(searhParams);
+  const pathname= useLocation().pathname;
+  const navigate= useNavigate();
+
+  const [category, setCategory] = React.useState('all');
+  const [sortOrder,setOrder]=React.useState('asc');
+  const [earchTerm,setSearchTerm]=React.useState('');
+
+  useEffect(()=>{
+     const currentCategory=searhParams.get("category") || 'all';
+     const currentSortOrder=searhParams.get("sortby") ||'asc';
+     const currentSearchTerm=searhParams.get("keyword") ||'';
+
+     setCategory(currentCategory);
+     setOrder(currentSortOrder);
+     setSearchTerm(currentSearchTerm);
+  },[searhParams])
 
   const handleCategoryChange = (event) => {
+     
     setCategory(event.target.value);
   };
 
