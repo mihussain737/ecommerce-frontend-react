@@ -14,9 +14,9 @@ const Products = () => {
 
   useProductFilter();
 
-  useEffect(() => {
-    dispatch(fetchProducts());
-  }, [dispatch]);
+  // useEffect(() => {
+  //   dispatch(fetchProducts());
+  // }, [dispatch]);
   console.log("Products from store:", products);
 
   return (
