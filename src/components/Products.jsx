@@ -2,9 +2,10 @@ import React, { useEffect } from 'react';
 import ProductCard from './ProductCard.jsx';
 import { FaExclamationTriangle } from 'react-icons/fa';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchProducts } from '../store/actions/index.js';
+import { fetchCategories, fetchProducts } from '../store/actions/index.js';
 import Filter from './Filter.jsx'
 import useProductFilter from './useProductFilter.jsx';
+import Loader from './Loader.jsx';
 
 const Products = () => {
 
@@ -25,7 +26,8 @@ const Products = () => {
       <Filter categories={categories ? categories:[]}></Filter>
       {
         isLoading ? (
-          <p>It is Loading...</p>
+          // <p>It is Loading...</p>
+                  <Loader text={"Products Loading"}></Loader>
         ) :
         errorMessage ? (
           <div className='flex justify-center items-center h-[200px]'>
