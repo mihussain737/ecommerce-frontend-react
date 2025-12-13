@@ -6,14 +6,15 @@ import { useLocation, useNavigate,useSearchParams } from 'react-router-dom';
 
 
 
-const Filter = () => {
-  const categories = [
-    { categoryId: 1, categoryName: 'Books' },
-    { categoryId: 2, categoryName: 'Electronics' },
-    { categoryId: 3, categoryName: 'Clothing' },
-    { categoryId: 4, categoryName: 'Home & Kitchen' },
-    { categoryId: 5, categoryName: 'Sports & Outdoors' },
-  ];
+const Filter = ({categories}) => {
+  // const categories = [
+  //   { categoryId: 1, categoryName: 'Books' },
+  //   { categoryId: 2, categoryName: 'Electronics' },
+  //   { categoryId: 3, categoryName: 'Clothing' },
+  //   { categoryId: 4, categoryName: 'Home & Kitchen' },
+  //   { categoryId: 5, categoryName: 'Sports & Outdoors' },
+  //   { categoryId: 6, categoryName: 'Mobiles' },
+  // ];
 
   const [searchParams]=useSearchParams();
   const params=new URLSearchParams(searchParams);
