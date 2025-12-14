@@ -6,11 +6,12 @@ import { fetchCategories, fetchProducts } from '../store/actions/index.js';
 import Filter from './Filter.jsx'
 import useProductFilter from './useProductFilter.jsx';
 import Loader from './Loader.jsx';
+import Paginations from './Paginations.jsx';
 
 const Products = () => {
 
   const {isLoading, errorMessage} = useSelector((state) => state.errors);
-  const { products,categories } = useSelector((state) => state.products);
+  const { products,categories ,pagination } = useSelector((state) => state.products);
   const dispatch = useDispatch();
 
   useProductFilter();
@@ -44,6 +45,13 @@ const Products = () => {
                   <ProductCard key={i} {...item} />
                 ))
               }
+            </div>
+            <div className='flex justify-center pt-10'>
+              {/* Pagination Component can be placed here */}
+              <Paginations 
+                numberOfPage={pagination?.totalPages} 
+                totalProducts={pagination?.totalElements} 
+               />
             </div>
           </div>
         )
