@@ -1,6 +1,6 @@
 import './App.css'
-import Products from './components/Products.jsx'
-import ProductViewModel from './components/ProductViewModal.jsx'
+import Products from './components/products/Products.jsx'
+import ProductViewModel from './components/shared/ProductViewModal.jsx'
 
 function App() {
 
