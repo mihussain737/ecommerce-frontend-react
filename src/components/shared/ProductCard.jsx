@@ -11,7 +11,8 @@ const ProductCard = ({
           quantity,
           price,
           discount,
-          specialPrice
+          specialPrice,
+          about
 }) => {
      const [openProductViewModel, setOpenProductViewModel] = React.useState(false);
      const btnLoader=false;
@@ -19,8 +20,11 @@ const ProductCard = ({
      const isAvailble=quantity && Number(quantity) >0;
 
      const handleProductView=(product)=>{
-          setSelectedViewProduct(product);
-          setOpenProductViewModel(true);
+          if(!about){
+             setSelectedViewProduct(product);
+             setOpenProductViewModel(true);  
+          }
+          
      };
 
   return (
@@ -61,7 +65,7 @@ const ProductCard = ({
                     <p className='text-gray-600 text-sm'>{truncateText(description,80)}</p>
                </div>
 
-               <div className='flex items-center justify-between'>
+               {!about && <div className='flex items-center justify-between'>
                     {specialPrice ? (
                     <div className='flex flex-col'>
                          <span className='text-gray-400 line-through'>
@@ -88,6 +92,8 @@ const ProductCard = ({
                          {isAvailble ? "Add to Cart" : "Out of Stock"}
                     </button>
                </div>
+               }
+               
           </div>
           <ProductViewModal
           open={openProductViewModel}
