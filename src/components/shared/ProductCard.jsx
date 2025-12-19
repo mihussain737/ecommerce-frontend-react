@@ -2,6 +2,9 @@ import React from 'react'
 import { FaShoppingCart } from 'react-icons/fa';
 import ProductViewModal from './ProductViewModal';
 import { truncateText } from '../utils/truncateText';
+import { useDispatch } from 'react-redux';
+import { addToCart } from '../../store/actions';
+import toast from 'react-hot-toast';
 
 const ProductCard = ({
           productId,
@@ -12,12 +15,14 @@ const ProductCard = ({
           price,
           discount,
           specialPrice,
-          about
+          about =false
 }) => {
      const [openProductViewModel, setOpenProductViewModel] = React.useState(false);
      const btnLoader=false;
      const [selectedViewProduct, setSelectedViewProduct]=React.useState({});
      const isAvailble=quantity && Number(quantity) >0;
+
+     const dispatch=useDispatch();
 
      const handleProductView=(product)=>{
           if(!about){
@@ -26,6 +31,10 @@ const ProductCard = ({
           }
           
      };
+
+     const addToCartHandler =(cartItems)=>{
+          dispatch(addToCart(cartItems, 1, toast));
+     }
 
   return (
     <div className='border rounded-lg shadow-xl overflow-hidden transition-shadow duration-300'>
@@ -85,7 +94,16 @@ const ProductCard = ({
                     )}
                     <button
                          disabled={!isAvailble || btnLoader}
-                         onClick={()=> {}}
+                         onClick={()=> addToCartHandler({
+                              productId,
+                              productName,
+                              image,
+                              description,
+                              quantity,
+                              price,
+                              discount,
+                              specialPrice,
+                         })}
                          className={`bg-blue-500 ${isAvailble ? "opacity-100 hover:bg-blue-600" :"opacity-70"}
                          text-white px-3 py-2 rounded-lg flex items-center justify-center transition-colors duration-300 w-36`}>
                          <FaShoppingCart className='mr-2'/>
