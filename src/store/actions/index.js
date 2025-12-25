@@ -85,11 +85,12 @@ export const increaseCartQuantity =
 
     if (isQuantityExist) {
       const newQuantity = currentQuantity + 1;
+      console.log("newQuantity:: "+newQuantity);
       setCurrentQuantity(newQuantity);
 
       dispatch({
         type: "ADD_CART",
-        payload: { ...data, quantity: newQuantity + 1 },
+        payload: { ...data, quantity: newQuantity },
       });
       localStorage.setItem("cartItems", JSON.stringify(getState().carts.cart));
     } else {
@@ -109,10 +110,8 @@ export const decreaseCartQuantity =
     localStorage.setItem("cartItems", JSON.stringify(getState().carts.cart));
   };
 
-
-export const removeFromCart=
-    (data,toast)=>(dispatch,getState)=>{
-      dispatch({type:"REMOVE_CART",payload:data});
-      toast.success(`${data.productName} removed from cart`)
-      localStorage.setItem("cartItems", JSON.stringify(getState().carts.cart));
-    }
+export const removeFromCart = (data, toast) => (dispatch, getState) => {
+  dispatch({ type: "REMOVE_CART", payload: data });
+  toast.success(`${data.productName} removed from cart`);
+  localStorage.setItem("cartItems", JSON.stringify(getState().carts.cart));
+};

@@ -4,6 +4,8 @@ import SetQuantity from "./SetQuantity";
 import { useDispatch } from "react-redux";
 import { decreaseCartQuantity, increaseCartQuantity, removeFromCart } from "../../store/actions";
 import toast from "react-hot-toast";
+import FormatPrice from "../utils/FormatPrice";
+import { truncateText } from "../utils/truncateText";
 
 const ItemContent = ({
   productId,
@@ -43,7 +45,7 @@ const removeItemFromCart=(cartItems)=>{
       <div className="md:col-span-2 justify-self-start flex flex-col gap-2">
           <div className="flex md:flex-row flex-col lg:gap-4 sm:gap-3 gap-0 items-start">
                <h3 className="lg:text-[17px] text-sm font-semibold text-slate-600">
-                    {productName}
+                    {truncateText(productName)}
                </h3>
           </div>
 
@@ -71,7 +73,7 @@ const removeItemFromCart=(cartItems)=>{
       </div>
 
      <div className="justify-self-center lg:text-[17px] font-semibold text-sm text-slate-600">
-          {Number(specialPrice)}
+          {FormatPrice (Number(specialPrice))}
      </div>
      <div className="justify-self-center">
           <SetQuantity quantity={currentQuantity}
@@ -97,8 +99,8 @@ const removeItemFromCart=(cartItems)=>{
                               description
                          })}/>
      </div>
-     <div className="justify-self-center">
-          {Number(currentQuantity)* Number(specialPrice)}
+     <div className="justify-self-center text-lg font-semibold">
+          {FormatPrice (Number(currentQuantity)* Number(specialPrice))}
      </div>
 
     </div>
