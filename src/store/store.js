@@ -5,11 +5,11 @@ import { cartReducer } from "./reducers/cartReducer";
 import { authReducer } from "./reducers/authReducer";
 
 const user = localStorage.getItem("auth")
-  ? JSON.parse(localStorage.getItem("auth")).filter(Boolean)
+  ? JSON.parse(localStorage.getItem("auth"))
   : [];
 
 const cartItems = localStorage.getItem("cartItems")
-  ? JSON.parse(localStorage.getItem("cartItems")).filter(Boolean)
+  ? JSON.parse(localStorage.getItem("cartItems"))
   : [];
 
 
