@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import { BiUser, BiUserCircle } from "react-icons/bi";
 import { FaShoppingCart } from 'react-icons/fa';
 import { IoExitOutline } from "react-icons/io5";
+import BackDrop from './BackDrop';
 
 
 
@@ -69,6 +70,7 @@ const UserMenu = () => {
                </div>
           </MenuItem>
       </Menu>
+      {open && <BackDrop/>}
     </div>
   );
 }
