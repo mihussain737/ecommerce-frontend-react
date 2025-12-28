@@ -130,7 +130,25 @@ export const authenticatSignInUser=
         navigate("/")
       } catch (error) {
         console.log(error);
-        toast.error(error.response.data.m || "Internal Server Error");
+        toast.error(error?.response?.data?.messagem || "Internal Server Error");
+      }finally{
+        setLoader(false);
+      }
+}
+
+export const registerNewUser=
+ (sendData, toast, reset ,navigate, setLoader)=> 
+    async(dispatch)=>{
+
+      try {
+        setLoader(true);
+        const {data }=await api.post("/auth/signup",sendData)
+        reset()
+        toast.success(data?.message || "User Registered Successfully");
+        navigate("/login")
+      } catch (error) {
+        console.log(error);
+        toast.error(error?.response?.data?.messagem || error?.response?.data?.messagem || "Internal Server Error");
       }finally{
         setLoader(false);
       }
