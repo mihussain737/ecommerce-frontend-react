@@ -1,9 +1,17 @@
 import { Avatar, Button, Menu, MenuItem } from '@mui/material';
 import React from 'react'
+import { useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
+import { BiUser, BiUserCircle } from "react-icons/bi";
+import { FaShoppingCart } from 'react-icons/fa';
+import { IoExitOutline } from "react-icons/io5";
+
+
 
 const UserMenu = () => {
  const [anchorEl, setAnchorEl] = React.useState(null) ;
   const open = Boolean(anchorEl);
+  const {user}= useSelector((state)=> state.auth);
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
@@ -11,8 +19,12 @@ const UserMenu = () => {
     setAnchorEl(null);
   };
 
+  const logoutHandler=()=>{
+
+  }
+
   return (
-    <div>
+    <div className='relative z-30'>
       <div
         className='sm:border-[1px] sm:border-slate-400 flex flex-row items-center gap-1 rounded-full cursor-pointer hover:shadow-md transition text-slate-700'
         onClick={handleClick}
@@ -20,6 +32,7 @@ const UserMenu = () => {
         <Avatar alt='menu' src=''/>
       </div>
       <Menu
+      sx={{width:"400px"}}
         id="basic-menu"
         anchorEl={anchorEl}
         open={open}
@@ -27,12 +40,34 @@ const UserMenu = () => {
         slotProps={{
           list: {
             'aria-labelledby': 'basic-button',
+            sx:{width: 160}
           },
         }}
       >
-        <MenuItem onClick={handleClose}>Profile</MenuItem>
-        <MenuItem onClick={handleClose}>My account</MenuItem>
-        <MenuItem onClick={handleClose}>Logout</MenuItem>
+        <Link to="/profile">
+          <MenuItem className='flex gap-2' onClick={handleClose}>
+               <BiUserCircle className="text-xl"/>
+               <span className='font-semibold'>
+                    {user?.username}
+               </span>
+          </MenuItem>
+        </Link>
+        <Link to="/profile/orders">
+          <MenuItem className='flex gap-2' onClick={handleClose}>
+               <FaShoppingCart className='text-xl'/>
+               <span className='font-semibold'>
+                    Order
+               </span>
+          </MenuItem>
+        </Link>
+          <MenuItem className='flex gap-2' onClick={logoutHandler}>
+               <div className='font-semibold w-full flex gap-2 items-center bg-blue-600 px-4 py-1 hover:bg-blue-700 text-white cursor-pointer rounded-sm'>
+                    <IoExitOutline className="text-xl" />
+                    <span className='font-semibold'>
+                         Logout
+                    </span>
+               </div>
+          </MenuItem>
       </Menu>
     </div>
   );
