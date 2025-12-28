@@ -18,7 +18,7 @@ export const fetchProducts = (queryString) => async (dispatch) => {
     console.log(error);
     dispatch({
       type: "IS_ERROR",
-      payload: error?.response?.data?.messagem || "Failed to fetch products",
+      payload: error?.response?.data?.message || "Failed to fetch products",
     });
   }
 };
@@ -41,7 +41,7 @@ export const fetchCategories = () => async (dispatch) => {
     console.log(error);
     dispatch({
       type: "IS_ERROR",
-      payload: error?.response?.data?.messagem || "Failed to fetch categories",
+      payload: error?.response?.data?.message || "Failed to fetch categories",
     });
   }
 };
@@ -130,7 +130,7 @@ export const authenticatSignInUser=
         navigate("/")
       } catch (error) {
         console.log(error);
-        toast.error(error?.response?.data?.messagem || "Internal Server Error");
+        toast.error(error?.response?.data?.message || "Internal Server Error");
       }finally{
         setLoader(false);
       }
@@ -148,7 +148,7 @@ export const registerNewUser=
         navigate("/login")
       } catch (error) {
         console.log(error);
-        toast.error(error?.response?.data?.messagem || error?.response?.data?.messagem || "Internal Server Error");
+        toast.error(error?.response?.data?.message || error?.response?.data?.message || "Internal Server Error");
       }finally{
         setLoader(false);
       }
