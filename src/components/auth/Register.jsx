@@ -6,6 +6,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { registerNewUser } from '../../store/actions';
 import toast from 'react-hot-toast';
+import Spinners from '../shared/Spinners';
 
 const Register = () => {
   const navigate = useNavigate();
@@ -69,10 +70,15 @@ const Register = () => {
                  register={register}
                  errors={errors}
                  />
-                 <button disabled={loader} className="bg-blue-600 flex gap-2 items-center justify-center font-semibold text-white w-full py-2 hover:bg-blue-800 transition-colors duration-100 rounded-md my-3" type="submit">
-                      {loader ?(
-                          <>Loading...</>
-                      ):(
+                 <button
+                     disabled={loader}
+                    className={`bg-blue-600 flex items-center justify-center gap-2 font-semibold text-white w-full py-2 rounded-md my-3
+                    ${loader ? "opacity-70 cursor-not-allowed" : "hover:bg-blue-800"}
+                         `}
+               >
+                    {loader ?(
+                        <Spinners/>
+                    ):(
                            <>Register</>
                       )}
                  </button>
