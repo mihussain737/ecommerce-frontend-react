@@ -6,8 +6,10 @@ import Spinners from '../shared/Spinners';
 import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { FaAddressCard } from 'react-icons/fa';
+import { addUpdateUserAddress } from '../../store/actions';
+import toast from 'react-hot-toast';
 
-const AddAdressForm = () => {
+const AddAdressForm = ({address,setOpenAddressModal}) => {
      const dispatch=useDispatch();
      const navigate = useNavigate();
      const [loader, setLoader] = useState(false);
@@ -24,7 +26,7 @@ const AddAdressForm = () => {
        });
 
        const onSaveAddressHandler = async (data) => {
-            console.log("Login clicked")
+            dispatch(addUpdateUserAddress(data,toast,address?.addressId,setOpenAddressModal))
          };
      
   return (
@@ -82,7 +84,7 @@ const AddAdressForm = () => {
                <InputField 
                label="Country"
                required
-               id="pincode"
+               id="country"
                type="text"
                message="*Country is required"
                placeholder="Enter your Country Name"

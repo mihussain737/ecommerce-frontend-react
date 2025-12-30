@@ -53,7 +53,8 @@ const AddressInfo = () => {
       <AddressInfoModal 
         open={openAddressModal}
         setOpen={setOpenAddressModal}>
-        <AddAdressForm/>
+        <AddAdressForm address={selectedAddress}
+          setOpenAddressModal={setOpenAddressModal}/>
         </AddressInfoModal>
     </div>
   );
