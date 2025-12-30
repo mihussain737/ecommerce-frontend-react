@@ -163,7 +163,7 @@ export const logOutUser= (navigate)=> (dispatch)=>{
 
 export const addUpdateUserAddress= (sendData,toast,addressId, setOpenAddressModal,)=> async  (dispatch,getState)=>{
 
-  // const { user } = getState().auth;
+  const { user } = getState().auth;
     dispatch({type:"BUTTON_LOADER"});
     try {
         const {data }=await api.post("/addresses",sendData)
