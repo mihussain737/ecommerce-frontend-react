@@ -1,18 +1,24 @@
 import { Step, StepLabel, Stepper } from "@mui/material";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import AddressInfo from "./AddressInfo";
+import { useDispatch } from "react-redux";
+import { getUserAddress } from "../../store/actions";
 
 
 const Checkout = () => {
 
      const [activeStep, setActiveStep]=useState(0);
+     const dispatch=useDispatch();
 
      const steps=[
           "Address",
           "Payment Method",
           "Order Summary",
           "Payment"
-     ]
+     ];
+     useEffect(()=>{
+          dispatch(getUserAddress());
+     },[dispatch])
   return (
     <div className="py-14 min-h-[calc(100vh-100px)]">
       <Stepper activeStep={activeStep} alternativeLabel>
