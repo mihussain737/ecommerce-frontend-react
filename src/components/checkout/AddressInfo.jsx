@@ -56,7 +56,7 @@ const AddressInfo = ({address}) => {
             {address.length>0 && (
               <button className="px-4 py-2 mt-1 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded transition cursor-pointer"
               onClick={addNewAddressHandler}>
-              Add Address
+              Add More
             </button>
             )}
             </>

@@ -25,7 +25,7 @@ const AddressList = ({ addresses, setSelectedAddress, setOpenAddressModal }) => 
           <div key={address.addressId}
              onClick={()=> handleAddressSelection(address)}
              className={`p-4 border rounded-md cursor-pointer relative ${
-               address.addressId===selectedUserCheckoutAddress.addressId?
+               address.addressId===selectedUserCheckoutAddress?.addressId?
                "bg-green-100":"bg-white"
              }`}>
 
