@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form';
 import { AiOutlineLogin } from 'react-icons/ai';
 import InputField from '../shared/InputField';
@@ -20,6 +20,7 @@ const AddAdressForm = ({address,setOpenAddressModal}) => {
          register,
          handleSubmit,
          reset,
+         setValue,
          formState: { errors },
        } = useForm({
          mode: "onTouched",
@@ -28,6 +29,17 @@ const AddAdressForm = ({address,setOpenAddressModal}) => {
        const onSaveAddressHandler = async (data) => {
             dispatch(addUpdateUserAddress(data,toast,address?.addressId,setOpenAddressModal))
          };
+
+         useEffect(()=>{
+          if(address?.addressId){
+               setValue("buildingName",address?.buildingName);
+               setValue("street",address?.street);
+               setValue("cityName",address?.cityName);
+               setValue("pincode",address?.pincode);
+               setValue("state",address?.state);
+               setValue("country",address?.country);
+          }
+         },[address])
      
   return (
     <div className="">
@@ -36,7 +48,9 @@ const AddAdressForm = ({address,setOpenAddressModal}) => {
           <div className="flex justify-center items-center mb-4 font-semibold text-2xl text-slate-800 py-2 px-4">
                <FaAddressCard className="mr-2 text-3xl"/>
                <h1 className="text-slate-800 text-center font-sans lg:text-3xl text-2xl font-bold">
-                    Add Address Here
+                    {!address?.addressId ?
+                    "Add Address Here":"Update Address"
+                    }
                </h1>
           </div>
           <hr className="mt-2 mb-5 text-black" />

@@ -50,7 +50,7 @@ const AddressInfo = ({address}) => {
             <div className="space-y-4 pt-6">
               <AddressList addresses={address}
               setSelectedAddress={setSelectedAddress}
-              openAddressModal={openAddressModal}
+              setOpenAddressModal={setOpenAddressModal}
               />
             </div>
             {address.length>0 && (

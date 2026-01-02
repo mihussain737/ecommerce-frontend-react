@@ -166,9 +166,16 @@ export const addUpdateUserAddress= (sendData,toast,addressId, setOpenAddressModa
   const { user } = getState().auth;
     dispatch({type:"BUTTON_LOADER"});
     try {
+        if(addressId){
+          const {data }=await api.put(`/addresses/${addressId}`,sendData)
+          toast.success("Address Updated Successfully");
+          dispatch({type:"IS_SUCCESS"});
+        }else{
         const {data }=await api.post("/addresses",sendData)
         toast.success("Address Saved Successfully");
         dispatch({type:"IS_SUCCESS"});
+        }
+        dispatch(getUserAddress());
       } catch (error) {
         console.log(error);
         toast.error(error?.response?.data?.message || "Internal Server Error");
