@@ -171,9 +171,10 @@ export const addUpdateUserAddress= (sendData,toast,addressId, setOpenAddressModa
           toast.success("Address Updated Successfully");
           dispatch({type:"IS_SUCCESS"});
         }else{
-        const {data }=await api.post("/addresses",sendData)
-        toast.success("Address Saved Successfully");
-        dispatch({type:"IS_SUCCESS"});
+          const {data }=await api.post(`/addresses`,sendData)
+          dispatch(getUserAddress());
+          toast.success("Address Saved Successfully");
+          dispatch({type:"IS_SUCCESS"});
         }
         dispatch(getUserAddress());
       } catch (error) {
@@ -206,3 +207,30 @@ export const selectUserCheckoutAddress=(address)=>{
     payload:address,
   }
 };
+
+
+
+export const deleteUserAddress = (toast,addressId,setOpenDeleteModal) => async (dispatch,getState) => {
+  try {
+    dispatch({ type: "BUTTON_LOADER" });
+    await api.delete(`/addresses/${addressId}`);
+    dispatch({type:"IS_SUCCESS"});
+    dispatch(getUserAddress());
+    dispatch(clearCheckoutAddress());
+    toast.success("Address Deleted Successfully");
+  } catch (error) {
+    console.log(error);
+    dispatch({
+      type: "IS_ERROR",
+      payload: error?.response?.data?.message || "Some Error Ocurred",
+    });
+  }finally{
+    setOpenDeleteModal(false);
+  }
+};
+
+export const clearCheckoutAddress=()=>{
+  return{
+    type:"REMOVE_CHECKOUT_ADDRESS"
+  }
+}

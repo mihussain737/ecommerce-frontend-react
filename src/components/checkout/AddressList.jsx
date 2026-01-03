@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import {MdLocationCity, MdPinDrop, MdPublic} from "react-icons/md";
 import { selectUserCheckoutAddress } from "../../store/actions";
 
-const AddressList = ({ addresses, setSelectedAddress, setOpenAddressModal }) => {
+const AddressList = ({ addresses, setSelectedAddress, setOpenAddressModal ,setOpenDeleteModal}) => {
   const dispatch = useDispatch();
 //   const selectedUserAddress=addresses[1];
   const {selectedUserCheckoutAddress}=useSelector((state)=>state.auth);
@@ -18,6 +18,7 @@ const AddressList = ({ addresses, setSelectedAddress, setOpenAddressModal }) => 
   }
   const onDeleteButtonHandler=(addresses)=>{
      setSelectedAddress(addresses);
+     setOpenDeleteModal(true);
   }
 
   return <div className="space-y-4">
