@@ -233,4 +233,11 @@ export const clearCheckoutAddress=()=>{
   return{
     type:"REMOVE_CHECKOUT_ADDRESS"
   }
-}
+};
+
+export const addPaymentMethod=(method)=>{
+  return{
+    type:"ADD_PAYMENT_METHOD",
+    payload:method,
+  }
+};
