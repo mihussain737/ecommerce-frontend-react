@@ -4,8 +4,9 @@ import SetQuantity from "./SetQuantity";
 import { useDispatch } from "react-redux";
 import { decreaseCartQuantity, increaseCartQuantity, removeFromCart } from "../../store/actions";
 import toast from "react-hot-toast";
-import FormatPrice from "../utils/FormatPrice";
+
 import { truncateText } from "../utils/truncateText";
+import { FormatPrice } from "../utils/FormatPrice";
 
 const ItemContent = ({
   productId,

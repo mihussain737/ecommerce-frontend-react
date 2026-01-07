@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import ItemContent from "./ItemContent";
 import CartEmpty from "./CartEmpty";
-import FormatPrice from "../utils/FormatPrice";
+import { FormatPrice } from "../utils/FormatPrice";
 
 const Cart = () => {
 
