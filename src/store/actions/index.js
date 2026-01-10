@@ -274,3 +274,20 @@ export const getUserCart = () => async (dispatch,getState) => {
     });
   }
 };
+
+export const createStripePaymentSecret=
+ (totalPrice)=> 
+    async(dispatch,getState)=>{
+
+      try {
+        dispatch({type: "IS_FETCHING" });
+        const {data }=await api.post("/order/stripe-client-secret",{
+          "amount": Number(totalPrice) * 100, currency: "USD",
+        });
+        dispatch({type: "CLIENT_SECRET", payload:data});
+        localStorage.setItem("clientSecret", JSON.stringify(data));
+        dispatch({type: "IS_SUCCESS" });
+      } catch (error) {
+        console.log(error);
+      }
+};
