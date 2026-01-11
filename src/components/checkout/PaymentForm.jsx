@@ -46,10 +46,6 @@ const PaymentForm = ({ clientSecret, totalPrice }) => {
     </form>
   );
 
-  if(errorMessage){
-    setErrorMessage(errorMessage.message);
-    return false
-  }
 };
 
 export default PaymentForm;
