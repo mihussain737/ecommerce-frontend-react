@@ -1,3 +1,4 @@
+import { set } from "react-hook-form";
 import api from "../../api/api";
 
 export const fetchProducts = (queryString) => async (dispatch) => {
@@ -288,6 +289,29 @@ export const createStripePaymentSecret=
         localStorage.setItem("clientSecret", JSON.stringify(data));
         dispatch({type: "IS_SUCCESS" });
       } catch (error) {
-        console.log(error);
+        setErrorMessage("Failed to initiate payment. Please try again.");
+      }
+};
+
+export const stripePaymentConfirmation=
+ (setErrorMessage,setLoading,toast)=> 
+    async(dispatch,getState)=>{
+
+      try {
+        const response=await api.post("/order/users/payments/online",{});
+        console.log("Payment Confirmation Response: ", response);
+        if(response.data){
+          console.log("IN IF")
+          localStorage.removeItem("CHECKOUT_ADDRESS");
+          localStorage.removeItem("cartItems");
+          localStorage.removeItem("clientSecret");
+          dispatch({type: "REMOVE_CLIENT_SECRET_ADDRESS"});
+          dispatch({type: "CLEAR_CART"});
+          toast.success("Order accepted successfully");
+        }else{
+          setErrorMessage("Payment failed. Please try again.");
+        }
+      } catch (error) {
+        setErrorMessage("Payment failed. Please try again.");
       }
 };

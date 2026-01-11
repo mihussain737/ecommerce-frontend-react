@@ -9,8 +9,25 @@ const PaymentForm = ({ clientSecret, totalPrice }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setLoading(true);
-    setErrorMessage("");
+
+    if(!stripe || !elements){
+      return;
+    }
+    const { error: submitError} =await elements.submit();
+
+    const {error} = await stripe.confirmPayment({
+      elements,
+      clientSecret,
+      confirmParams:{
+        return_url:`${import.meta.env.VITE_FRONTEND_URL}/order-confirm`,
+      },
+    });
+
+    if(error){
+      setErrorMessage(error.message);
+      return false;
+    }
+
   };
 
   const paymentElementOptions={
@@ -28,6 +45,11 @@ const PaymentForm = ({ clientSecret, totalPrice }) => {
       disabled:animate-pulse" disabled={!stripe || isLoading}>{!isLoading ? `Pay $${Number(totalPrice).toFixed(2)}` : "Processing..."}</button>
     </form>
   );
+
+  if(errorMessage){
+    setErrorMessage(errorMessage.message);
+    return false
+  }
 };
 
 export default PaymentForm;
