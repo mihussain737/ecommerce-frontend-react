@@ -14,6 +14,10 @@ import Register from "./components/auth/Register.jsx";
 import Checkout from "./components/checkout/Checkout.jsx";
 import PaymentConfirmation from "./components/checkout/PaymentConfirmation.jsx";
 import AdminLayout from "./components/admin/AdminLayout.jsx";
+import Dashboard from "./components/admin/dashboard/Dashboard.jsx";
+import AdminProducts from "./components/admin/products/AdminProducts.jsx";
+import Category from "./components/admin/categories/Category.jsx";
+import Sellers from "./components/admin/sellers/Sellers.jsx";
 
 function App() {
   return (
@@ -26,21 +30,27 @@ function App() {
           <Route path="/about" element={<About />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/cart" element={<Cart />} />
-          
-          <Route path="/" element={<PrivateRoute/>}>
+
+          <Route path="/" element={<PrivateRoute />}>
             <Route path="/checkout" element={<Checkout />} />
             <Route path="/order-confirm" element={<PaymentConfirmation />} />
           </Route>
-         
-          <Route path="/" element={<PrivateRoute publicPage/>}>
-             <Route path="/login" element={<Login />} />
-             <Route path="/register" element={<Register />} />
+
+          <Route path="/" element={<PrivateRoute publicPage />}>
+            <Route path="/login" element={<Login />} />
+            <Route path="/register" element={<Register />} />
           </Route>
 
-          <Route path="/" element={<PrivateRoute adminOnly/>}>
-             <Route path="/admin" element={<AdminLayout />} />
+          <Route element={<PrivateRoute adminOnly />}>
+            <Route path="/admin" element={<AdminLayout />}>
+              <Route index element={<Dashboard />} />
+              <Route path="products" element={<AdminProducts />} />
+              <Route path="categories" element={<Category />} />
+              <Route path="sellers" element={<Sellers />} />
+            </Route>
           </Route>
-        </Routes> 
+          
+        </Routes>
       </Router>
       <Toaster position="bottom-center" />
     </React.Fragment>
