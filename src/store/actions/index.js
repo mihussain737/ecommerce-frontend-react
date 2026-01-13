@@ -203,6 +203,7 @@ export const getUserAddress = () => async (dispatch,getState) => {
 };
 
 export const selectUserCheckoutAddress=(address)=>{
+   localStorage.setItem("CHECKOUT_ADDRESS", JSON.stringify(address));
   return {
     type:"SELECT_CHECKOUT_ADDRESS",
     payload:address,
@@ -292,11 +293,11 @@ export const createStripePaymentSecret=
 };
 
 export const stripePaymentConfirmation=
- (setErrorMessage,setLoading,toast)=> 
+ (sendData,setErrorMessage,setLoading,toast)=> 
     async(dispatch,getState)=>{
 
       try {
-        const response=await api.post("/order/users/payments/online",{});
+        const response=await api.post("/order/users/payments/online",sendData);
         console.log("Payment Confirmation Response: ", response);
         if(response.data){
           console.log("IN IF")
@@ -311,5 +312,19 @@ export const stripePaymentConfirmation=
         }
       } catch (error) {
         setErrorMessage("Payment failed. Please try again.");
+      }
+};
+
+export const analyticsAction=
+ ()=> 
+    async(dispatch,getState)=>{
+
+      try {
+        dispatch({type: "IS_FETCHING" });
+        const {data }=await api.get("/admin/app/analytics");
+        dispatch({type: "FETCH_ANALYTICS", payload:data});
+        dispatch({type: "IS_SUCCESS" });
+      } catch (error) {
+        dispatch({type: "IS_ERROR", payload: error?.response?.data?.message || "Failed to fetch analytics data",});
       }
 };

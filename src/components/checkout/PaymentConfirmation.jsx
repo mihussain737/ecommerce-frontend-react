@@ -17,12 +17,31 @@ const PaymentConfirmation = () => {
      const paymentIntent=searchParams.get("payment_intent");
      const clientSecret=searchParams.get("payment_intent_client_secret");
      const redirectStatus=searchParams.get("redirect_status");
+     const selectedUserCheckoutAddress = localStorage.getItem("CHECKOUT_ADDRESS")
+        ? JSON.parse(localStorage.getItem("CHECKOUT_ADDRESS"))
+        : [];
+     
 
      useEffect(() => {
-        if(paymentIntent && clientSecret && redirectStatus && cart && cart?.length >0){
-               dispatch(stripePaymentConfirmation(setErrorMessage,setLoading,toast));
+        if (paymentIntent &&
+            clientSecret &&
+            redirectStatus 
+            &&
+            cart &&
+            cart?.length > 0
+        ) { 
+            console.log(selectedUserCheckoutAddress);
+            const sendData = {
+                addressId: selectedUserCheckoutAddress.addressId,
+                pgName: "Stripe",
+                pgPaymentId: paymentIntent,
+                pgStatus: "succeeded",
+                pgResponseMessage: "Payment successful"
+              };
+              console.log(sendData);
+            dispatch(stripePaymentConfirmation(sendData, setErrorMessage, setLoading, toast));
         }
-     }, [paymentIntent,clientSecret, redirectStatus,cart]);
+    }, [paymentIntent, clientSecret, redirectStatus, cart]);
 
   return (
     <div className='min-h-screen flex items-center justify-center'>
