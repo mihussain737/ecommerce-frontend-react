@@ -18,6 +18,7 @@ import Dashboard from "./components/admin/dashboard/Dashboard.jsx";
 import AdminProducts from "./components/admin/products/AdminProducts.jsx";
 import Category from "./components/admin/categories/Category.jsx";
 import Sellers from "./components/admin/sellers/Sellers.jsx";
+import Orders from "./components/admin/orders/Orders.jsx";
 
 function App() {
   return (
@@ -45,6 +46,7 @@ function App() {
             <Route path="/admin" element={<AdminLayout />}>
               <Route index element={<Dashboard />} />
               <Route path="products" element={<AdminProducts />} />
+              <Route path="orders" element={<Orders />} />
               <Route path="categories" element={<Category />} />
               <Route path="sellers" element={<Sellers />} />
             </Route>
