@@ -5,14 +5,18 @@ import Loader from '../../../components/shared/Loader';
 import { FaBoxOpen } from 'react-icons/fa';
 import { DataGrid } from '@mui/x-data-grid';
 import { adminProductTableColumn } from '../../helper/tableColumn';
+import useDashboardProductFilter from '../../../hooks/useDashboarProductFilter';
 
 const AdminProducts = () => {
-  const products =[{ "productId": 5, "productName": "Oppo", "image": "http://localhost:8080/images/9884b2bf-ad1f-4a2f-8e58-f0ff45c78a91.jpg", "description": "buy oppo phone", "quantity": 10, "price": 20000.0, "discount": 10.0, "specialPrice": 18000.0 }, { "productId": 1, "productName": "Iphone", "image": "http://localhost:8080/images/iphone12345.png", "description": "Buy Iphone", "quantity": 0, "price": 20000.0, "discount": 10.0, "specialPrice": 18000.0 }];
-  const pagination = {"pageNumber": 0, "pageSize": 50, "totalElements": 10, "totalPages": 1, "lastPage": true};
+  // const products =[{ "productId": 5, "productName": "Oppo", "image": "http://localhost:8080/images/9884b2bf-ad1f-4a2f-8e58-f0ff45c78a91.jpg", "description": "buy oppo phone", "quantity": 10, "price": 20000.0, "discount": 10.0, "specialPrice": 18000.0 }, { "productId": 1, "productName": "Iphone", "image": "http://localhost:8080/images/iphone12345.png", "description": "Buy Iphone", "quantity": 0, "price": 20000.0, "discount": 10.0, "specialPrice": 18000.0 }];
+  // const pagination = {"pageNumber": 0, "pageSize": 50, "totalElements": 10, "totalPages": 1, "lastPage": true};
+  const {products,pagination}=useSelector((state)=>state.products);
   const {isLoading,erroMessage}=useSelector((state)=>state.errors);
   const [currentPage,setCurrentPage]=useState(
     pagination?.pageNumber +1 || 1
   );
+
+  useDashboardProductFilter();
 
   const tableRecords = products?.map((item) => {
     return {
