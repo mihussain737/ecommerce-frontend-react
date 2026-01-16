@@ -446,3 +446,25 @@ export const deleteProduct = (setLoader,productId,toast,setOpenDeleteModal) => a
     toast.error(error?.response?.data?.message || "Some Error Occured!");
   }
 };
+
+export const updateProductImageFromDashboard = 
+    (formData, productId, toast, setLoader, setOpen, isAdmin) => async (dispatch,getState) => {
+    try {
+      const { user } = getState().auth;
+        setLoader(true);
+        const endpoint = isAdmin ? "/admin/products/" : "/seller/products/";
+        await api.put(`${endpoint}${productId}/image`, formData,{
+          headers: {
+    "Content-Type": "multipart/form-data", // important
+    "Authorization": `Bearer ${user.jwtToken}` // include JWT if endpoint is secured
+  }
+        });
+        toast.success("Image upload successful");
+        setLoader(false);
+        setOpen(false);
+        await dispatch(dashboardProductsAction());
+    } catch (error) {
+        toast.error(error?.response?.data?.description || "Product Image upload failed");
+     
+    }
+};
