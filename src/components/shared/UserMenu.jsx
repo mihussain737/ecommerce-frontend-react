@@ -1,9 +1,9 @@
 import { Avatar, Button, Menu, MenuItem } from '@mui/material';
-import React from 'react'
+import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import { BiUser, BiUserCircle } from "react-icons/bi";
-import { FaShoppingCart } from 'react-icons/fa';
+import { FaShoppingCart, FaUserShield } from 'react-icons/fa';
 import { IoExitOutline } from "react-icons/io5";
 import BackDrop from './BackDrop';
 import { logOutUser } from '../../store/actions';
@@ -19,6 +19,7 @@ const UserMenu = () => {
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
+  const isAdmin=user && user?.roles.includes("ROLE_ADMIN");
   const handleClose = () => {
     setAnchorEl(null);
   };
@@ -58,12 +59,24 @@ const UserMenu = () => {
         </Link>
         <Link to="/profile/orders">
           <MenuItem className='flex gap-2' onClick={handleClose}>
-               <FaShoppingCart className='text-xl'/>
+               <FaShoppingCart className="text-xl"/>
                <span className='font-semibold'>
                     Order
                </span>
           </MenuItem>
         </Link>
+        {
+          isAdmin &&(<Link to="/admin">
+          <MenuItem className='flex gap-2' onClick={handleClose}>
+               <FaUserShield className='text-xl'/>
+               <span className='font-semibold'>
+                    Admin Panel
+               </span>
+          </MenuItem>
+        </Link>)
+        }
+        
+        
           <MenuItem className='flex gap-2' onClick={logoutHandler}>
                <div className='font-semibold w-full flex gap-2 items-center bg-blue-600 px-4 py-1 hover:bg-blue-700 text-white cursor-pointer rounded-sm'>
                     <IoExitOutline className="text-xl" />
